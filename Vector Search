@@ -1,0 +1,65 @@
+***Data Setup:
+Let's start by generating some random 2D points:
+
+import hnswlib
+import numpy as np
+
+# Number of elements in the dataset
+num_elements = 10000
+
+# Dimensions of the data (2D points in this case)
+dimensions = 2
+
+# Generate random data points
+data = np.random.rand(num_elements, dimensions).astype(np.float32)
+
+***Building the HNSW Index:
+Now, let's create the HNSW index and add our data points to it:
+
+# Create an HNSW index
+index = hnswlib.Index(space='l2', dim=dimensions)
+
+# Initialize the index (maximum number of elements, space for future elements)
+index.init_index(max_elements=num_elements, ef_construction=200, M=16)
+
+# Add data points to the index
+index.add_items(data)
+
+*** Building the HNSW Index:
+Now, let's create the HNSW index and add our data points to it:
+
+# Create an HNSW index
+index = hnswlib.Index(space='l2', dim=dimensions)
+
+# Initialize the index (maximum number of elements, space for future elements)
+index.init_index(max_elements=num_elements, ef_construction=200, M=16)
+
+# Add data points to the index
+index.add_items(data)
+
+
+*** Performing a Search:
+Let's search for the nearest neighbors of a random query point:
+
+# Generate a random query point
+query_point = np.random.rand(1, dimensions).astype(np.float32)
+
+# Perform the search (k nearest neighbors)
+k = 5
+labels, distances = index.knn_query(query_point, k=k)
+
+print("Query point:", query_point)
+print("Nearest neighbors' indices:", labels)
+print("Distances to the query point:", distances)
+
+*** Output:
+The output will show the indices of the nearest neighbors and their distances from the query point.
+
+Query point: [[0.678, 0.556]]
+Nearest neighbors' indices: [[1203, 4789, 2341, 9810, 4532]]
+Distances to the query point: [[0.034, 0.065, 0.075, 0.089, 0.093]]
+
+
+
+
+
